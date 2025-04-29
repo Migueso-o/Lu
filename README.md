@@ -30,4 +30,4 @@ Haz clic aquí 👉 [Ver Sitio](https://TU-USUARIO.github.io/NOMBRE-DEL-REPOSITO
 ---
 
 ### 🎯 Autor
-Hecho con mucho amor ❤️ por [Tu Nombre]
+Hecho con mucho amor ❤️ por [miguel Botero]
