@@ -1,101 +1,143 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Te Amo</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #ffe6f0;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-        }
-        #heart {
-            font-size: 100px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        #heart:hover {
-            transform: scale(1.2);
-        }
-        .falling-heart {
-            position: absolute;
-            color: #ff3366;
-            animation: fall 5s linear infinite;
-            font-size: 24px;
-            pointer-events: none;
-        }
-        @keyframes fall {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-        #message {
-            display: none;
-            margin-top: 20px;
-            font-size: 24px;
-            color: #d6336c;
-            text-align: center;
-        }
-        #counter {
-            display: none;
-            margin-top: 10px;
-            font-size: 20px;
-            color: #993355;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Amor Eterno</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #ffe0f0, #ffc0cb);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    #heart {
+      font-size: 100px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #heart:hover {
+      transform: scale(1.2);
+    }
+
+    #message, #counter {
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .heart-fall {
+      position: absolute;
+      color: red;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 600px) {
+      body {
+        font-size: 14px;
+      }
+
+      #heart {
+        font-size: 80px;
+      }
+
+      #message {
+        font-size: 18px;
+      }
+
+      #counter h2 {
+        font-size: 18px;
+      }
+
+      #counter p {
+        font-size: 14px;
+      }
+    }
+
+  </style>
 </head>
 <body>
 
-    <div id="heart">❤️</div>
-    <div id="message">Para el amor de mi vida:
-                      Si pudiera elegir un lugar seguro, seria a tu lado. Cuando más tiempo estoy contigo más te amo, No te dejes vencer mi amor 
-                       TE AMO MI Lu  ATT: Este Negro de pelo enredado que tanto Te Ama.. Miguel B💖</div>
-    <div id="counter"></div>
+<div class="container">
+  <div id="heart">❤️</div>
+  <p id="heart-text">Aprieta el corazón, amor pequitas</p>
+  <div id="message"></div>
+  <div id="counter"></div>
+</div>
 
-    <script>
-        const heart = document.getElementById('heart');
-        const message = document.getElementById('message');
-        const counter = document.getElementById('counter');
+<script>
+const heart = document.getElementById('heart');
+const heartText = document.getElementById('heart-text');
+const message = document.getElementById('message');
+const counter = document.getElementById('counter');
 
-        function createHeart() {
-            const heartEl = document.createElement('div');
-            heartEl.classList.add('falling-heart');
-            heartEl.style.left = Math.random() * 100 + 'vw';
-            heartEl.innerText = '❤️';
-            document.body.appendChild(heartEl);
-            setTimeout(() => heartEl.remove(), 5000);
-        }
+let loveStartDate = new Date('2019-08-01T00:00:00');
 
-        function startFallingHearts() {
-            setInterval(createHeart, 300);
-        }
+heart.addEventListener('click', () => {
+  heart.style.display = 'none';
+  heartText.style.display = 'none';
+  createHearts();
+  showLoveMessage();
+  startCounter();
+});
 
-        function startCounter() {
-            const startDate = new Date('2019-08-01T00:00:00');
-            setInterval(() => {
-                const now = new Date();
-                const diff = now - startDate;
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((diff / (1000 * 60)) % 60);
-                const seconds = Math.floor((diff / 1000) % 60);
-                counter.innerText = `Juntos hace: ${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos.`;
-            }, 1000);
-        }
+function createHearts() {
+  for (let i = 0; i < 100; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart-fall';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    heart.innerText = '❤️';
+    heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+    document.body.appendChild(heart);
+    
+    setTimeout(() => heart.remove(), 8000);
+  }
+}
 
-        heart.addEventListener('click', () => {
-            heart.style.display = 'none';
-            message.style.display = 'block';
-            counter.style.display = 'block';
-            startFallingHearts();
-            startCounter();
-        });
-    </script>
+function showLoveMessage() {
+  message.innerText = 'Desde que nuestras almas se cruzaron en agosto de 2019, cada latido es por ti ❤️';
+  message.style.fontSize = '24px';
+  message.style.color = '#c0392b';
+  message.style.opacity = 1;
+}
+
+function startCounter() {
+  counter.style.opacity = 1;
+  setInterval(() => {
+    const now = new Date();
+    const diff = now - loveStartDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    counter.innerHTML = `
+      <h2>Tiempo juntos:</h2>
+      <p>${days} días, ${hours} horas, ${minutes} minutos, ${seconds} segundos</p>
+    `;
+    counter.style.color = '#8e44ad';
+  }, 1000);
+}
+</script>
+
 </body>
 </html>
