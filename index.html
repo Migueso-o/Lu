@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Te Amo</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #ffe6f0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        #heart {
+            font-size: 100px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #heart:hover {
+            transform: scale(1.2);
+        }
+        .falling-heart {
+            position: absolute;
+            color: #ff3366;
+            animation: fall 5s linear infinite;
+            font-size: 24px;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        #message {
+            display: none;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #d6336c;
+            text-align: center;
+        }
+        #counter {
+            display: none;
+            margin-top: 10px;
+            font-size: 20px;
+            color: #993355;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="heart">❤️</div>
+    <div id="message">Para el amor de mi vida:
+                      Si pudiera elegir un lugar seguro, seria a tu lado. Cuando más tiempo estoy contigo más te amo, No te dejes vencer mi amor 
+                       TE AMO MI Lu  ATT: Este Negro de pelo enredado que tanto Te Ama.. Miguel B💖</div>
+    <div id="counter"></div>
+
+    <script>
+        const heart = document.getElementById('heart');
+        const message = document.getElementById('message');
+        const counter = document.getElementById('counter');
+
+        function createHeart() {
+            const heartEl = document.createElement('div');
+            heartEl.classList.add('falling-heart');
+            heartEl.style.left = Math.random() * 100 + 'vw';
+            heartEl.innerText = '❤️';
+            document.body.appendChild(heartEl);
+            setTimeout(() => heartEl.remove(), 5000);
+        }
+
+        function startFallingHearts() {
+            setInterval(createHeart, 300);
+        }
+
+        function startCounter() {
+            const startDate = new Date('2019-08-01T00:00:00');
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - startDate;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+                counter.innerText = `Juntos hace: ${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos.`;
+            }, 1000);
+        }
+
+        heart.addEventListener('click', () => {
+            heart.style.display = 'none';
+            message.style.display = 'block';
+            counter.style.display = 'block';
+            startFallingHearts();
+            startCounter();
+        });
+    </script>
+</body>
+</html>
